@@ -32,15 +32,18 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     const {email, password} = req.body;
-
     if (!email || !password) {
         throw new BadRequestError('Please enter the missing fields');
     }
 
-    const user = await User.findOne({email});
-
+    const user = await User.findOne({email}).select('+password');
     if (!user) {
-        throw new UnauthenticatedError('No user found');
+        throw new UnauthenticatedError('The email or password not found!');
+    }
+
+    const isPasswordCorrect = await user.comparePassword(password);
+    if (!isPasswordCorrect) {
+        throw new UnauthenticatedError('The email or password not found!');
     }
 
     const token = user.createJWT();
