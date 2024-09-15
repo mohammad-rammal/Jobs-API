@@ -1,0 +1,193 @@
+openapi: 3.0.0
+info:
+    title: Jobs API
+    description: The Jobs API allows users to manage job postings in a system.
+    contact:
+        name: Mohammad Rammal
+        email: mohammad.rammal@hotmail.com
+    version: '1.0'
+servers:
+    - url: https://jobs-api-qjcn.onrender.com/api/v1
+      variables: {}
+paths:
+    /jobs:
+        post:
+            tags:
+                - Jobs
+            summary: Create Job
+            operationId: CreateJob
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CreateJobRequest'
+                        example:
+                            company: ACER
+                            position: intern
+                required: true
+            responses:
+                '200':
+                    description: ''
+            security:
+                - bearer: []
+        get:
+            tags:
+                - Jobs
+            summary: Get All Jobs
+            operationId: GetAllJobs
+            parameters: []
+            responses:
+                '200':
+                    description: ''
+            security:
+                - bearer: []
+    /jobs/{id}:
+        parameters:
+            - in: path
+              name: id
+              schema:
+                  type: integer
+              required: true
+              description: The job ID
+        patch:
+            tags:
+                - Jobs
+            summary: Update Job
+            operationId: UpdateJob
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UpdateJobRequest'
+                        example:
+                            company: TOSHIBA
+                            position: Senior
+                required: true
+            responses:
+                '200':
+                    description: ''
+            security:
+                - bearer: []
+        delete:
+            tags:
+                - Jobs
+            summary: Delete Job
+            operationId: DeleteJob
+            responses:
+                '200':
+                    description: ''
+            security:
+                - bearer: []
+        get:
+            tags:
+                - Jobs
+            summary: Get Job By ID
+            operationId: GetJobByID
+            responses:
+                '200':
+                    description: ''
+            security:
+                - bearer: []
+    /auth/register:
+        post:
+            tags:
+                - Auth
+            summary: Register
+            operationId: Register
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/RegisterRequest'
+                        example:
+                            password: '12345678'
+                required: true
+            responses:
+                '200':
+                    description: ''
+    /auth/login:
+        post:
+            tags:
+                - Auth
+            summary: Login
+            operationId: Login
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/LoginRequest'
+                        example:
+                            password: '12345678'
+                            email: mohammad@email.com
+                required: true
+            responses:
+                '200':
+                    description: ''
+components:
+    schemas:
+        RegisterRequest:
+            title: RegisterRequest
+            required:
+                - password
+            type: object
+            properties:
+                password:
+                    type: string
+            example:
+                password: '12345678'
+        LoginRequest:
+            title: LoginRequest
+            required:
+                - password
+                - email
+            type: object
+            properties:
+                password:
+                    type: string
+                email:
+                    type: string
+            example:
+                password: '12345678'
+                email: mohammad@email.com
+        CreateJobRequest:
+            title: CreateJobRequest
+            required:
+                - company
+                - position
+            type: object
+            properties:
+                company:
+                    type: string
+                position:
+                    type: string
+            example:
+                company: ACER
+                position: intern
+        UpdateJobRequest:
+            title: UpdateJobRequest
+            required:
+                - company
+                - position
+            type: object
+            properties:
+                company:
+                    type: string
+                position:
+                    type: string
+            example:
+                company: TOSHIBA
+                position: Senior
+    securitySchemes:
+        bearer:
+            type: http
+            scheme: bearer
+security: []
+tags:
+    - name: Jobs
+    - name: Auth
+      description: ''
