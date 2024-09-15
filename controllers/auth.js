@@ -10,14 +10,14 @@ exports.register = async (req, res) => {
         throw new BadRequestError('Please enter the missing fields');
     }
 
-    const salt = await bcrypt.genSalt(10);
+    // const salt = await bcrypt.genSalt(10);
 
-    const hashedPassword = await bcrypt.hash(password, salt);
+    // const hashedPassword = await bcrypt.hash(password, salt);
 
-    const tempUser = {email, name, password: hashedPassword};
+    // const tempUser = {email, name, password: hashedPassword};
 
     const user = await User.create({
-        ...tempUser,
+        ...req.body,
     });
 
     res.status(StatusCodes.CREATED).json({
