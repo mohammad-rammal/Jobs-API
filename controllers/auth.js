@@ -2,7 +2,7 @@ const {StatusCodes} = require('http-status-codes');
 const bcrypt = require('bcryptjs');
 
 const User = require('../models/User');
-const {BadRequestError} = require('../errors');
+const {BadRequestError, UnauthenticatedError} = require('../errors');
 
 exports.register = async (req, res) => {
     const {name, email, password} = req.body;
@@ -31,21 +31,23 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-    const user = User.findOne({email: req.body.email, password: req.body.password});
+    const {email, password} = req.body;
 
-    if (!user) {
-        throw new BadRequestError('No user found');
+    if (!email || !password) {
+        throw new BadRequestError('Please enter the missing fields');
     }
 
-    const token = jwt.sign({userId: user._id, name: user.name}, process.env.JWT_SECRET, {
-        expiresIn: '30d',
-    });
+    const user = await User.findOne({email});
 
-    res.status(StatusCodes.CREATED).json({
+    if (!user) {
+        throw new UnauthenticatedError('No user found');
+    }
+
+    const token = user.createJWT();
+
+    res.status(StatusCodes.OK).json({
         status: 'success',
+        user: {name: user.name, email: user.email},
         token,
-        data: {
-            user,
-        },
     });
 };
