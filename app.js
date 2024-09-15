@@ -7,7 +7,7 @@ const cors = require('cors');
 const rateLimiter = require('express-rate-limit');
 const swaggerUI = require('swagger-ui-express');
 const YAML = require('yamljs');
-
+const path = require('path');
 const connectDB = require('./db/connect');
 const authRouter = require('./routes/auth');
 const jobsRouter = require('./routes/jobs');
@@ -32,11 +32,14 @@ const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
 app.use(express.json());
-// extra packages
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    res.send('<h1> Jobs API </h1> <a href="/api-docs">Documentation </a> ');
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // routes

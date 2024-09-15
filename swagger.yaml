@@ -1,12 +1,13 @@
 openapi: 3.0.0
 info:
     title: Jobs API
-    description: The Jobs API allows users to manage job postings in a system.
+    description: >
+        The Jobs API allows users to manage job postings in a system.  
+        For more details about the author, you can visit [GitHub](https://github.com/mohammad-rammal/Jobs-API) or [LinkedIn](https://www.linkedin.com/in/mohammad-rammal/).
     contact:
         name: Mohammad Rammal
         email: mohammad.rammal@hotmail.com
-        Github: https://github.com/mohammad-rammal/Jobs-API
-        linkedin: https://www.linkedin.com/in/mohammad-rammal/
+        url: https://github.com/mohammad-rammal/Jobs-API
     version: '1.0'
 servers:
     - url: https://jobs-api-qjcn.onrender.com/api/v1
