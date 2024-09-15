@@ -5,6 +5,8 @@ info:
     contact:
         name: Mohammad Rammal
         email: mohammad.rammal@hotmail.com
+        Github: https://github.com/mohammad-rammal/Jobs-API
+        linkedin: https://www.linkedin.com/in/mohammad-rammal/
     version: '1.0'
 servers:
     - url: https://jobs-api-qjcn.onrender.com/api/v1
@@ -188,6 +190,6 @@ components:
             scheme: bearer
 security: []
 tags:
-    - name: Jobs
     - name: Auth
+    - name: Jobs
       description: ''
