@@ -1,0 +1,4 @@
+/node_modules
+.env
+COMMANDS.md
+README.MD
