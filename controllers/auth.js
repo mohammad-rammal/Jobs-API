@@ -5,11 +5,11 @@ const User = require('../models/User');
 const {BadRequestError, UnauthenticatedError} = require('../errors');
 
 exports.register = async (req, res) => {
-    const {name, email, password} = req.body;
+    // const {name, email, password} = req.body;
 
-    if (!name || !email || !password) {
-        throw new BadRequestError('Please enter the missing fields');
-    }
+    // if (!name || !email || !password) {
+    //     throw new BadRequestError('Please enter the missing fields');
+    // }
 
     // const salt = await bcrypt.genSalt(10);
     // const hashedPassword = await bcrypt.hash(password, salt);
